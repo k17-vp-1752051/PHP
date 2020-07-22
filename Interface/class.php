@@ -23,34 +23,36 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Search</title>
-        <style>
-            table, tr, td, th
-            {
-                border: 1px solid black;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/style1.css">
+        <title>Class</title>
         
     </head>
     <body>
+    <div class="container">
+        <div class="content">
         <form action="class.php" method="GET">
-	    <input type="text" name="query" />
-	    <input type="submit" value="Search" /><br><br>
+	            <input type="text" name="query" />
+	            <input type="submit" value="Search" /><br><br>
+            </form>
+        
 
-</form>
-
-    <div id = "noidung">
+        <div id = "noidung">
         <table width = "25%">
             <tr>
                 <th>STT</th>
-                <!-- <th>ClassID</th>
-                <th>Class name</th>  -->
+              
                 <th><a href='?order=ClassID&&sort=<?php echo  $sort;?>'>ClassID</></a></th>
                 <th><a href='?order=ClassName&&sort=<?php echo  $sort;?>'>ClassName</th>
             </tr>
+        </div>
+        </div>
+
+    </div>
 
 </body>
 </html>
+
+
 <?php
     $query = "SELECT * FROM class ORDER BY $order $sort";
     $result = mysqli_query($link, $query);
@@ -66,7 +68,7 @@
             echo "<td>$ClassName</td>";
             echo "</td>";
             echo "<td><a href='delete.php?id=$ClassID'>Delete</a>
-            |<a href='update.php?id=$ClassID'>Update</a></td></tr> ";
+            <a href='update.php?id=$ClassID'>Update</a></td></tr> ";
         }
     }
 
@@ -90,7 +92,7 @@
             </tr>
 
             <tr>
-                <td>Class name</td>
+                <td>ClassName</td>
                 <td><input type="text" name="ClassName"/>
             </tr>
             <tr>
