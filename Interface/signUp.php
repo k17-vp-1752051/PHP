@@ -13,7 +13,6 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/signUp.js" defer></script>
 
-        <a href= "admin.php" ></a>
     </head>
     <body>
         <div class="container" id="container">
