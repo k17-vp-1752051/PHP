@@ -1,5 +1,3 @@
-<?php include "import.php"?>
-
 <?php
 $connect = new mysqli ('localhost', 'user', '123', 'demo') or die("Fail!");
 $query = "SELECT * FROM class ORDER BY ClassID DESC";
@@ -39,11 +37,20 @@ $result = mysqli_query($connect, $query);
   ?>
   </table>
 
-  <form action ="import.php" method="post" enctype="multipart/form-data">
+  <form action ="index.php" method="POST" enctype="multipart/form-data">
         <input type="file" name="import" required="required">
-        <input type="submit" value="Import" name="imp"/>
+        <input type="submit" value="Import" name="sub"/>
         </form>
 
+        <?php
+       
+        include ("import.php");
+        $imp = new import();
+        if(isset($_POST['sub'])){
+      
+          $imp->importFile($_FILES['file']['tmp_name']);
+        }
         
+        ?>
     </body>
 </html>

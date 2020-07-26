@@ -23,68 +23,87 @@
 //  }else{
 //      echo "connection failed.";
 //  }
-$connect = new mysqli ('localhost', 'user', '123', 'demo') or die("Fail!");
-if(isset($_POST["imp"])){
-    $target_dir = "uploads/";
-    $target_file = $target_dir.basename($_FILES['import']['name']);
 
-    $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+//chay dc nhung k ra gi
+// $connect = new mysqli ('localhost', 'user', '123', 'demo') or die("Fail!");
+// if(isset($_POST["imp"])){
+//     $target_dir = "uploads/";
+//     $target_file = $target_dir.basename($_FILES['import']['name']);
 
-    $uploadOk = 1;
-    if($imageFileType != 'csv'){
-        $uploadOk = 0;
-    }
+//     $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
 
-    if($uploadOk != 0){
-        if(move_uploaded_file($_FILES['import']['tmp_name'], $target_file)){
-            $fileexists = 0;
-            if(file_exists($target_file)){
-                $fileexxist = 1;
-            }
+//     $uploadOk = 1;
+//     if($imageFileType != 'csv'){
+//         $uploadOk = 0;
+//     }
 
-            if($fileexists == 1){
-                $file = fopen($target_file, "r");
-                $index =0;
+//     if($uploadOk != 0){
+//         if(move_uploaded_file($_FILES['import']['tmp_name'], $target_file)){
+//             $fileexists = 0;
+//             if(file_exists($target_file)){
+//                 $fileexxist = 1;
+//             }
 
-                $$importData_arr = array();
+//             if($fileexists == 1){
+//                 $file = fopen($target_file, "r");
+//                 $index =0;
 
-                while(($data = fgetcsv($file,1000,","))!=FALSE){
-                    $num = count($data);
+//                 $$importData_arr = array();
 
-                    for($c = 0; $c < $num; $c++){
-                        $importData_arr[$index][] = $data[$c];
-                    }
-                    $index++;
-                }
-                fclose($file);
+//                 while(($data = fgetcsv($file,1000,","))!=FALSE){
+//                     $num = count($data);
 
-                $skip = 0;
-                foreach($importData_arr as $data){
-                    if($skip != 0){
-                        $ClassID = $data[0];
-                        $ClassName = $data[1];
+//                     for($c = 0; $c < $num; $c++){
+//                         $importData_arr[$index][] = $data[$c];
+//                     }
+//                     $index++;
+//                 }
+//                 fclose($file);
 
-                        $check = "SELECT count(*) as allcount FROM class WHERE ClassID= '.$ClassID.'";
+//                 $skip = 0;
+//                 foreach($importData_arr as $data){
+//                     if($skip != 0){
+//                         $ClassID = $data[0];
+//                         $ClassName = $data[1];
 
-                        $retrieve_data = mysqli_query($connect, $check);
-                        $row = mysqli_fetch_assoc($retrieve_data);
-                        $count = $row['allcount'];
+//                         $check = "SELECT count(*) as allcount FROM class WHERE ClassID= '.$ClassID.'";
 
-                        if($count ==0){
-                            mysqli_query($connect, "INSERT INTO class(ClassId, ClassName) VALUES ('".$ClassID."',' ".$ClassName."')");
-                        }
-                    }
-                    $skip++;
-                }
+//                         $retrieve_data = mysqli_query($connect, $check);
+//                         $row = mysqli_fetch_assoc($retrieve_data);
+//                         $count = $row['allcount'];
 
-                if(file_exists($target_file)){
-                    unlink($target_file);
-                }
-            }
+//                         if($count ==0){
+//                             mysqli_query($connect, "INSERT INTO class(ClassId, ClassName) VALUES ('".$ClassID."',' ".$ClassName."')");
+//                         }
+//                     }
+//                     $skip++;
+//                 }
+
+//                 if(file_exists($target_file)){
+//                     unlink($target_file);
+//                 }
+//             }
+//         }
+//     }
+// }
+
+class import extends mysqli
+{
+    public function construct()
+    {
+        parent::__construct("localhost", "user", "123", "demo");
+        if($this->connect_error){
+            echo "Fail!" .$this->connect_error;;
         }
     }
+
+
+public function importFile($file){
+    $file = fopen($file, 'r');
+    while($row = fgetcsv($file)){
+        var_dump($row);
+    }
 }
-
-
+}
 
 ?>
