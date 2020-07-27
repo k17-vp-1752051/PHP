@@ -14,9 +14,9 @@ $result = mysqli_query($connect, $query);
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     </head>
     <body>
-    <form method ="post" action="export.php">
+    <!-- <form method ="post" action="export.php">
     <input type="submit" name="export" value="CSV Export"/>
-    </form>
+    </form> -->
     <table class="table table-bordered">
   <thead>
     <tr>
@@ -36,21 +36,114 @@ $result = mysqli_query($connect, $query);
   }
   ?>
   </table>
+   <form method ="post" action="export.php">
+    <input type="submit" name="export" value="CSV Export"/>
+    </form>
 
-  <form action ="index.php" method="POST" enctype="multipart/form-data">
-        <input type="file" name="import" required="required">
+  <!-- <form action ="index.php" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" id="file" required="required">
         <input type="submit" value="Import" name="sub"/>
-        </form>
+        </form> -->
 
         <?php
        
-        include ("import.php");
-        $imp = new import();
-        if(isset($_POST['sub'])){
-      
-          $imp->importFile($_FILES['file']['tmp_name']);
-        }
+      //   include ("import.php");
+      //   $imp = new import();
+      //   if(isset($_POST['sub'])){
+      // if(isset($FILES['file'])){
+      //   echo "success";
+      // }else{
+      //   echo "fail";
+      // }
+      //    // $imp->importFile($_FILES['file']['tmp_name']);
+      //     //echo $_FILES['file'];
+      //   }
         
         ?>
+
+<table width="600">
+<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+
+<tr>
+<!-- <td width="20%">Select file</td> -->
+<td width="80%"><input type="file" name="file" id="file" /></td>
+</tr>
+
+<tr>
+<!-- <td>Submit</td> -->
+<td><input type="submit" name="submit" /></td>
+</tr>
+
+</form>
+</table>
+
+<?php
+//include ("import.php");
+
+function importFile($file){
+  $file = fopen($file, 'r');
+  $i = 0;
+  $class = rtrim($_FILES['file']['name'], ".csv");
+  $start_row = 1;
+  $connect = new mysqli ('localhost', 'user', '123', 'demo') or die("Fail!");
+  while($row = fgetcsv($file)){
+
+    if($i >=$start_row){
+      
+      $ClassID = $row[0];
+      $ClassName = $row[1];
+      
+      $q = "INSERT INTO `class`(`ClassID`, `ClassName`) VALUES ('$ClassID','$ClassName')";
+      echo $q;
+      mysqli_query($connect,$q);
+      echo $q, "<br>";
+
+     
+    }
+    $i++;
+   
+  }
+
+ 
+}
+
+if ( isset($_POST["submit"]) ) {
+
+  if ( isset($_FILES["file"])) {
+
+           //if there was an error uploading the file
+       if ($_FILES["file"]["error"] > 0) {
+           echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
+
+       }
+       else {
+                //Print file details
+            // echo "Upload: " . $_FILES["file"]["name"] . "<br />";
+            // echo "Type: " . $_FILES["file"]["type"] . "<br />";
+            // echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br />";
+            // echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br />";
+
+                //if file already exists
+            if (file_exists("upload/" . $_FILES["file"]["name"])) {
+           echo $_FILES["file"]["name"] . " already exists. ";
+
+           $imp = importFile($_FILES['file']['tmp_name']);
+
+
+           
+            }
+            else {
+                  //Store file in directory "upload" with the name of "uploaded_file.txt"
+           $storagename = "file.csv";
+          // move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $storagename);
+           echo "Stored in: " . "upload/" . $_FILES["file"]["name"] . "<br />";
+           }
+       }
+    } else {
+            echo "No file selected <br />";
+    }
+}
+
+?>
     </body>
 </html>
