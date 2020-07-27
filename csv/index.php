@@ -85,7 +85,7 @@ function importFile($file){
   $i = 0;
   $class = rtrim($_FILES['file']['name'], ".csv");
   $start_row = 1;
-  $connect = new mysqli ('localhost', 'user', '123', 'demo') or die("Fail!");
+  // $connect = new mysqli ('localhost', 'user', '123', 'demo') or die("Fail!");
   while($row = fgetcsv($file)){
 
     if($i >=$start_row){
@@ -95,7 +95,7 @@ function importFile($file){
       
       $q = "INSERT INTO `class`(`ClassID`, `ClassName`) VALUES ('$ClassID','$ClassName')";
       echo $q;
-      mysqli_query($connect,$q);
+      mysqli_query($GLOBALS['connect'],$q);
       echo $q, "<br>";
 
      
