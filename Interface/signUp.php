@@ -112,7 +112,7 @@
                         if($num_row != 0){
                             echo "<script>location.href='class.php';</script>";
                         }else{
-                            echo "Fail!";
+                            echo "Email or Password is wrong!";
                         }
                     }
                     
