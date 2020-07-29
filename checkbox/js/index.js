@@ -13,7 +13,7 @@ $('document').ready(function(){
 
 $('document').ready(function(){
             //lay cac gia tri cua checkbox duoc lua chon
-            $("button#delete_all").click(function(){
+            $("button#delete").click(function(){
                 //tao bien luu mang cac gia tri cua checkbox duoc chon
                 var ids = new Array();
                 $(this).parent('div#checkall').find('[name="ids[]"]:checked').each(function()
