@@ -1,7 +1,7 @@
 <?php
 
 class BooksController extends AppController{
-    //public $name = "Books";
+    // public $name = "Books";
     // function index(){
     //   $data = $this->Book->find("all");
       
@@ -21,7 +21,7 @@ class BooksController extends AppController{
   public $helpers = array('Form','Paginator','Html');
   public $paginate = array();
 
-  function view(){
+  function index(){
     $data = $this->Book->find("all");
       
       $this->set("data",$data);
@@ -44,9 +44,10 @@ class BooksController extends AppController{
        $post = $this->paginate("Book",$conditions);
        $this->set("posts",$post);
     }
+
   }
   function search() {
-     $url['action'] = 'view';
+     $url['action'] = 'index';
      foreach ($this->data as $key=>$value){
         foreach ($value as $key2=>$value2){
           $url[$key.'.'.$key2]=$value2;

@@ -20,6 +20,7 @@ if (!class_exists('ConnectionManager') || Configure::read('debug') < 2) {
 	return false;
 }
 $noLogs = !isset($sqlLogs);
+$nologs = false;
 if ($noLogs):
 	$sources = ConnectionManager::sourceList();
 
@@ -33,7 +34,12 @@ if ($noLogs):
 	endforeach;
 endif;
 
+if($nologs == false){
+	return;
+}
+
 if ($noLogs || isset($_forced_from_dbo_)):
+	// if ($noLogs):
 	foreach ($sqlLogs as $source => $logInfo):
 		$text = $logInfo['count'] > 1 ? 'queries' : 'query';
 		printf(
