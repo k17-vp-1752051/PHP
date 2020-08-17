@@ -21,6 +21,7 @@ class UsersController extends AppController
           ->select(['username', 'email'])
           ->limit(2)
           ->page(1);
-        $this->set(compact('datas'));
+        //$this->set(compact('datas'));
+        die (json_encode($datas));
     }
 }

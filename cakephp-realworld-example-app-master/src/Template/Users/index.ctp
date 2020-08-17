@@ -1,4 +1,4 @@
-<h1>Articles</h1>
+<h1>Users</h1>
 <hr>
     <button id = "load" type="button" onclick="loadDoc()">Load more ...</button>
 <hr>
@@ -25,13 +25,11 @@
 var pageNum = 1;
 function loadDoc() {
     pageNum++;
-    //document.getElementById("load").loadDoc().write("hello");
-    // document.getElementById("load").innerHTML = "Xin chào";
+    
     $.ajax({
-        type : 'GET', //kiểu post
-        url  : 'http://localhost:8765/user/search/' + pageNum, //gửi dữ liệu sang trang submit.php
-        // data : data,
-       // contentType: "application/json",
+        type : 'GET', 
+        url  : 'http://localhost:8765/user/search/' + pageNum,
+        
         success :  function(result)
                {
                     var datas = JSON.parse(result);
@@ -48,3 +46,45 @@ function loadDoc() {
 }
 
 </script>
+
+<table id="idTable">
+    <tr>
+        <td>
+            <?= $username = $_GET["username"] ?>
+        </td>
+        <td>
+            <?= $email = $_GET["email"]; ?>
+        </td>
+    </tr>
+</table>
+
+<script>
+public function getData (){
+    $datass = [ 
+    'username' => $this->username, 
+    'email'=> $this->email, 
+    return $datass;
+  }
+  var datass = getData().serialize();
+  $.ajax({
+            type : 'GET', 
+            url  : 'http://localhost:8765/user/index',
+            data : datass,
+        
+            success :  function(datass)
+                {                       
+                    var obj = JSON.parse(d);
+                    //var table = document.getElementById("idTable");
+                    datass.forEach(e => {
+                        // var row = table.insertRow(-1);
+                        // var cell1 = row.insertCell(0);
+                        // var cell2 = row.insertCell(1);
+                        // cell1.innerHTML = e.username;
+                        // cell2.innerHTML = e.email;
+                        e.username;
+                        e.email;
+                    });
+                }
+        });
+</script>
+
