@@ -1,6 +1,6 @@
 <h1>Articles</h1>
 <hr>
-<button>Load more</button>
+    <button id = "load" type="button" onclick="loadDoc()">Load more ...</button>
 <hr>
 
 <table id="idTable">
@@ -8,9 +8,6 @@
         <th>Username</th>
         <th>Email</th>
     </tr>
-
-    <!-- Here is where we iterate through our $articles query object, printing out article info -->
-
     <?php foreach ($datas as $d): ?>
     <tr>
         <td>
@@ -22,3 +19,32 @@
     </tr>
     <?php endforeach; ?>
 </table>
+    <!-- Here is where we iterate through our $articles query object, printing out article info -->
+
+<script>
+var pageNum = 1;
+function loadDoc() {
+    pageNum++;
+    //document.getElementById("load").loadDoc().write("hello");
+    // document.getElementById("load").innerHTML = "Xin chào";
+    $.ajax({
+        type : 'GET', //kiểu post
+        url  : 'http://localhost:8765/user/search/' + pageNum, //gửi dữ liệu sang trang submit.php
+        // data : data,
+       // contentType: "application/json",
+        success :  function(result)
+               {
+                    var datas = JSON.parse(result);
+                    var table = document.getElementById("idTable");
+                    datas.forEach(e => {
+                        var row = table.insertRow(-1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        cell1.innerHTML = e.username;
+                        cell2.innerHTML = e.email;
+                    });
+               }
+        });
+}
+
+</script>

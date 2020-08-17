@@ -8,18 +8,18 @@ use Cake\View\Exception\MissingTemplateException;
 
 class UsersController extends AppController
 {
-    function search() {
+    function search($page) {
         $data = $this->Users->find("all")
           ->select(['username', 'email'])
-          ->limit(5)
-          ->page(2);
+          ->limit(2)
+          ->page($page);
         die (json_encode($data));
     }
 
     function index() {
         $datas = $this->Users->find("all")
           ->select(['username', 'email'])
-          ->limit(5)
+          ->limit(2)
           ->page(1);
         $this->set(compact('datas'));
     }
