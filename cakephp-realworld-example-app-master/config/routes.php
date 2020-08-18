@@ -51,8 +51,11 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/user/search/:page', ['controller' => 'Users', 'action' => 'search'])
         ->setPass(['page']);
 
-    // $routes->connect('/user/index', ['controller' => 'Users', 'action' => 'index']);
+    $routes->connect('/user/index', ['controller' => 'Users', 'action' => 'index']);
     $routes->connect('/user/*', ['controller' => 'Users', 'action' => 'index']);
+
+    //$routes->connect('/user/:username/:email', ['controller' => 'Users', 'action' => 'add'])
+        //->setPass(['username', 'email']);
 
     /**
      * Connect catchall routes for all controllers.

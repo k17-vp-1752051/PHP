@@ -21,7 +21,22 @@ class UsersController extends AppController
           ->select(['username', 'email'])
           ->limit(2)
           ->page(1);
-        //$this->set(compact('datas'));
-        die (json_encode($datas));
+        $this->set(compact('datas'));
     }
+
+    function add($username, $email) {
+      $datas = $this->Users->find("all")
+        ->select(['username', 'email'])
+        ->limit(2)
+        ->page(1);
+
+      $obj = (Object)[
+        'username' => $username,
+        'email' => $email,
+      ];
+      
+      $myList = $datas->toArray();
+      array_push($myList, $obj);
+      die (json_encode($myList));
+  }
 }
