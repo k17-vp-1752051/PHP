@@ -44,5 +44,5 @@ function loadDoc() {
                }
         });
 }
-
+</script>
 
