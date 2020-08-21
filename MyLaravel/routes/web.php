@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('fullname/{name}', function ($name) { 
     echo $name;
@@ -54,7 +54,27 @@ Route::group(['refix'=>'MyGroup'], function(){
 
 Route::get('/', 'PagesController@home');
 Route::get('/about', 'PagesController@about'); 
-Route::get('/contact', 'PagesController@contact');
+// Route::get('/contact', 'PagesController@contact');
+Route::get('/contact', 'TicketsController@create');
+Route::post('/contact', 'TicketsController@store');
+Route::get('/tickets', 'TicketsController@index');
+Route::get('/tickets/{slug?}', 'TicketsController@show');
+Route::get('/ticket/{slug?}/edit','TicketsController@edit');
+Route::post('/ticket/{slug?}/edit','TicketsController@update');
+Route::post('/ticket/{slug?}/delete','TicketsController@destroy');
+
+Route::get('sendemail', function () {
+    $data = array( 'name' => "Learning Laravel", );
+    Mail::send('welcome', $data, function ($message) {
+    $message->from('truongtructruc.1105@gmail.com', 'Learning Laravel');
+    $message->to('tructruc.11051999@gmail.com')->subject('Learning Laravel test email');
+    });
+    return "Your email has been sent successfully";
+    });
+    
+
+
+
 
 
     

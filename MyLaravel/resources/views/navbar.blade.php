@@ -8,11 +8,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand" href="#">Learning Laravel</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <!-- <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Link <span class="sr-only">(current)</spa\n></a></li>
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
@@ -33,19 +33,9 @@
                         <input type="text" class="form-control" placeholder="Search">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+                </form> -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="butto\n" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                    </li>
+                <li class="active"><a href="/">Home</a></li> <li><a href="/about">About</a></li> <li><a href="/contact">Contact</a></li> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" r\ ole="button" aria-expanded="false">Member <span class="caret"></span></a> <ul class="dropdown-menu" role="menu"> <li><a href="/users/register">Register</a></li> <li><a href="/users/login">Login</a></li> </ul> </li> 
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
