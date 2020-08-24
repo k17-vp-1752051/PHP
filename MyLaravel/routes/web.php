@@ -64,14 +64,14 @@ Route::post('/ticket/{slug?}/edit','TicketsController@update');
 Route::post('/ticket/{slug?}/delete','TicketsController@destroy');
 
 Route::get('sendemail', function () {
-    $data = array( 'name' => "Learning Laravel", );
-    Mail::send('welcome', $data, function ($message) {
-    $message->from('truongtructruc.1105@gmail.com', 'Learning Laravel');
-    $message->to('tructruc.11051999@gmail.com')->subject('Learning Laravel test email');
-    });
-    return "Your email has been sent successfully";
-    });
+   $details = [
+        'title'=>'Mail from Surfside Media',
+   ];
+   \Mail::to('truc.11119999@gmail.com')->send(new \App\Mail\TestMail($details));
+    echo "Email has been sent!";    
+});
     
+Route::post('/comment', 'CommentsController@newComment');
 
 
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+//use App\Http\Requests\Request;
+
 use Illuminate\Foundation\Http\FormRequest;
 
-class TicketFormRequest extends FormRequest
+class CommentFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +26,6 @@ class TicketFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //the users must fill the title field,
-            //and the title should have a minimum three character length. 
-            'title' => 'required|min:3', 
             'content'=> 'required|min:3',
         ];
     }
