@@ -17,46 +17,14 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('fullname/{name}', function ($name) { 
-    echo $name;
-    });
 
-Route::get('la/{date}', function ($date) { 
-    echo "Day: " .$date;
-    })->where (['date'=>'[a-zA-Z]+']);
-
-Route::get('Route1', ['as'=>'MyRoute', function(){
-    echo "hello123";
-}]);
-
-Route::get('Route2', function(){
-    echo "this is route 2";
-})->name('MyRoute2');
-
-Route::get('call', function(){
-    return redirect()->route('MyRoute2');
-});
-
-Route::group(['refix'=>'MyGroup'], function(){
-    //goi route user1: ../MyGroup/user1
-    Route::get('user1', function(){
-        echo "user1";
-    });
-
-    Route::get('user2', function(){
-        echo "user2";
-    });
-
-    Route::get('user3', function(){
-        echo "user3";
-    });
-});
 
 Route::get('/', 'PagesController@home');
 Route::get('/about', 'PagesController@about'); 
 // Route::get('/contact', 'PagesController@contact');
 Route::get('/contact', 'TicketsController@create');
 Route::post('/contact', 'TicketsController@store');
+
 Route::get('/tickets', 'TicketsController@index');
 Route::get('/tickets/{slug?}', 'TicketsController@show');
 Route::get('/ticket/{slug?}/edit','TicketsController@edit');
@@ -72,9 +40,32 @@ Route::get('sendemail', function () {
 });
     
 Route::post('/comment', 'CommentsController@newComment');
-
-
-
+// Route::get('users/register', 'Auth\AuthController@getRegister');  //registration form 
+// Route::post('users/register', 'Auth\AuthController@postRegister');//process the form
 
 
     
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'PagesController@home');
+
+// Route::get('register', 'Auth\RegisterController@getRegister');
+// Route::post('register', 'Auth\RegisterController@postRegister');
+
+Route::get('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@getLogin']);
+//Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@postLogin']);
+
+Route::get('logout', [ 'as' => 'logout', 'uses' => 'Auth\LogoutController@getLogout']);
+
+
+// Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'), function () { 
+//     Route::get('users', 'UsersController@index'); 
+// });
+
+Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>'manager'), function () { 
+    Route::get('users', [ 'as' => 'admin.user.index', 'uses' => 'UsersController@index']); 
+    Route::get('roles', 'RolesController@index'); 
+    Route::get('roles/create', 'RolesController@create'); 
+    Route::post('roles/create', 'RolesController@store'); 
+});

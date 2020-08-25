@@ -35,7 +35,23 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form> -->
                 <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="/">Home</a></li> <li><a href="/about">About</a></li> <li><a href="/contact">Contact</a></li> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" r\ ole="button" aria-expanded="false">Member <span class="caret"></span></a> <ul class="dropdown-menu" role="menu"> <li><a href="/users/register">Register</a></li> <li><a href="/users/login">Login</a></li> </ul> </li> 
+                <li class="active"><a href="/">Home</a></li> 
+                <li><a href="/about">About</a></li> 
+                <li><a href="/contact">Contact</a></li> 
+                <li class="dropdown"> 
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" r\ ole="button" aria-expanded="false">Member <span class="caret"></span></a> 
+                    <ul class="dropdown-menu" role="menu"> 
+                        <!-- <li><a href="/register">Register</a></li> 
+                        <li><a href="/users/login">Login</a></li>
+                        <li><a href="/users/logout">Logout</a></li>   -->
+                        @if (Auth::check()) 
+                        <li><a href="/logout">Logout</a></li> 
+                        @else 
+                        <li><a href="register">Register</a></li> 
+                        <li><a href="login">Login</a></li> 
+                        @endif
+                    </ul> 
+                </li> 
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
