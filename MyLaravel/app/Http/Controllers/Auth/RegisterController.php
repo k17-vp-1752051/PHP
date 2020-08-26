@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Register;
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+
 use Session;
 
 use App\Http\Controllers\Controller;
@@ -27,14 +27,13 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
-    
+
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-
 
     /**
      * Create a new controller instance.
@@ -74,9 +73,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-
-    public function getRegister() {
-        return view('auth/register');
     }
 }

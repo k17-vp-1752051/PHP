@@ -50,8 +50,8 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home', 'PagesController@home');
 
-// Route::get('register', 'Auth\RegisterController@getRegister');
-// Route::post('register', 'Auth\RegisterController@postRegister');
+Route::get('register', 'Auth\RegisterController@getRegister');
+//Route::post('register', 'Auth\RegisterController@postRegister');
 
 Route::get('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@getLogin']);
 //Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@postLogin']);
@@ -69,3 +69,7 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>'
     Route::get('roles/create', 'RolesController@create'); 
     Route::post('roles/create', 'RolesController@store'); 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
