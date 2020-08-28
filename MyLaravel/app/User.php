@@ -6,12 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-use Spatie\Permission\Traits\HasRoles;
+//use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
-    use HasRoles;
+    //use HasRoles;
     /**
      * The attributes that are mass assignable.
      *
@@ -38,5 +38,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
+    public function roles(){
+        return $this->belongsToMany(Role::class,'user_role');
+    }
+        
+    public function saveRoles($roles)
+    {
+        if(!empty($roles))
+        {
+            $this->roles()->sync($roles);
+        } else {
+            $this->roles()->detach();
+        }
+    }
+
+    public function hasRole( ... $roles ) {
+        if ($roles == "admin") {
+            return true;
+        } else {
+            return false;
+        }
+        //return true;
+
+    }
+
 }

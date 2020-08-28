@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Role;
 
+use App\Http\Requests\UserEditFormRequest;
+use Illuminate\Support\Facades\Hash;
+
 class UsersController extends Controller
 {
     public function index() { 
@@ -17,7 +20,23 @@ class UsersController extends Controller
     public function edit($id) { 
         $user = User::whereId($id)->firstOrFail(); 
         $roles = Role::all(); 
-        $selectedRoles = $user->$roles->pluck('id')->toArray(); 
+
+        $selectedRoles = $user->roles->pluck('id')->toArray(); 
         return view('backend.users.edit', compact('user', 'roles', 'selectedRoles')); 
+    }
+
+    public function update($id, UserEditFormRequest $request)
+    {
+        $user = User::whereId($id)->firstOrFail();
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $password = $request->get('password');
+
+        if($password != "") {
+        $user->password = Hash::make($password);
+        }
+        $user->save();
+        $user->saveRoles($request->get('role'));
+        return redirect(action('Admin\UsersController@edit', $user->id))->with('status', 'The user has been updated!');
     }
 }

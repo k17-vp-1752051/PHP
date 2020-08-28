@@ -38,8 +38,8 @@
                         <div class="col-lg-10"> 
                             <select class="form-control" id="role" name="role[]" multiple>
                                 @foreach($roles as $role) 
-                                    <option value="{!! $role->id !!}" @if(in_array($role->id, $selectedRoles))
-                                        selected="selected" @endif >{!! $role->display_name !!}
+                                    <option value="{!! $role->id !!}" @if(in_array($role->id, $selectedRoles)) selected="selected" @endif >
+                                        {!! $role->display_name !!}
                                     </option> 
                                 @endforeach 
                             </select> 
