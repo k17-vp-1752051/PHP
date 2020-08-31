@@ -53,14 +53,12 @@ class User extends Authenticatable
         }
     }
 
-    public function hasRole( ... $roles ) {
-        if ($roles == "admin") {
+    public function hasRole($roles ) {
+        if ( true ){//User::where('role', $role)->get() == $roles) {
             return true;
         } else {
             return false;
         }
-        //return true;
-
     }
 
 }
